@@ -18,12 +18,23 @@ bool is_adjacent(const string& word1, const string& word2){
         }
         return SimCounter == 1;
     }else if (lenOne-lenTwo == 1){
+        for (int i = 0; i < lenTwo; ++i){
+            if (word1[i] != word2[i]) SimCounter++;
+            if (SimCounter == 1 && (i+1) != lenOne){
+                word1[i+1] == word2[i];
+                --SimCounter;
+            }
+        }
+        return SimCounter == 0;
+    }else if (lenOne-lenTwo == -1){ //only allowed to have a one difference
         for (int i = 0; i < lenOne; ++i){
             if (word1[i] != word2[i]) SimCounter++;
+            if (SimCounter == 1 && (i+1) != lenTwo){
+                word1[i] == word2[i+1];
+                --SimCounter;
+            }
         }
-        return SimCounter == 1;
-    }else if (lenOne-lenTwo == -1){ //only allowed to have a one difference
-
+        return SimCounter == 0;
     }
     return false
     // :OOOOO
@@ -42,19 +53,19 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 
     while (!ladder_queue.empty()){ is not empty:
 
-        ladder = ladder_queue.pop();
-
+        ladder = ladder_queue.front();
+        ladder_queue.pop();
        // last_word = last element of ladder
-        last_word = ladder[ladder.size()-1];
+        last_word = ladder.back();
 
         //for word in word_list:
-        for(string word : ladder){
+        for(string word : word_list){
 
             if is_adjacent(last_word, word){
 
-                if (!visited.find(word) != visited.end()){//word not in visited:
+                if (visited.find(word) == visited.end()){//word not in visited:
 
-                    visited.insert(word)
+                    visited.insert(word);
 
                     //new_ladder = copy of ladder
                     std::set<string> new_ladder = ladder; 
@@ -69,7 +80,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
         }
     }
 
-    return ladder;
+    return {};
 
 //end function
 }
