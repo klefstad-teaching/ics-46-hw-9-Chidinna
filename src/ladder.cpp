@@ -19,50 +19,55 @@ bool is_adjacent(const string& word1, const string& word2){
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
-    /*function generate_word_ladder(begin_word, end_word, word_list):
-
-    ladder_queue = queue of vector of strings
+    //ladder_queue = queue of vector of strings
     std::queue<std::vector<string>> ladder_queue;
 
-    ladder_queue.push([begin_word])
+    ladder_queue.push([begin_word]);
 
-    visited = set of strings
+    //visited = set of strings
     std::set<string> visited;
 
-    visited.insert(begin_word)
+    visited.insert(begin_word);
 
     while (!ladder_queue.empty()){ is not empty:
 
-        ladder = ladder_queue.pop_front()
+        ladder = ladder_queue.pop();
 
-        last_word = last element of ladder
+       // last_word = last element of ladder
+        last_word = ladder[ladder.size()-1];
 
-        for word in word_list:
+        //for word in word_list:
+        for(string word : ladder){
 
-            if is_adjacent(last_word, word):
+            if is_adjacent(last_word, word){
 
-                if word not in visited:
+                if (!visited.find(word) != visited.end()){//word not in visited:
 
                     visited.insert(word)
 
-                    new_ladder = copy of ladder
+                    //new_ladder = copy of ladder
+                    std::set<string> new_ladder = ladder; 
 
-                    new_ladder.push_back(word)
+                    new_ladder.push_back(word);
 
-                    if word equals end_word:
+                    if(word == end_word) return new_ladder;
 
-                        return new_ladder
-
-                    ladder_queue.push(new_ladder)
+                    ladder_queue.push(new_ladder);
+                }
+            }
+        }
     }
 
-    return no ladder found
+    return ladder;
 
-end function*/
+//end function
 }
 
 void load_words(set<string> & word_list, const string& file_name);
 
-void print_word_ladder(const vector<string>& ladder);
+void print_word_ladder(const vector<string>& ladder){
+    for (int i = 0 ; i < ladder.size(); ++i)
+    std::cout << ladder[i] << " ";
+}
 
 void verify_word_ladder();
