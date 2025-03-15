@@ -10,11 +10,22 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
 
 bool is_adjacent(const string& word1, const string& word2){
     int lenOne = word1.length();
+    int lenTwo = word2.length();
     int SimCounter = 0;
-    for (int i = 0; i < lenOne; ++i){
-        if (word1[i] != word2[i]) SimCounter++;
+    if (lenOne-lenTwo = 0){
+        for (int i = 0; i < lenOne; ++i){
+            if (word1[i] != word2[i]) SimCounter++;
+        }
+        return SimCounter == 1;
+    }else if (lenOne-lenTwo == 1){
+        for (int i = 0; i < lenOne; ++i){
+            if (word1[i] != word2[i]) SimCounter++;
+        }
+        return SimCounter == 1;
+    }else if (lenOne-lenTwo == -1){ //only allowed to have a one difference
+
     }
-    return SimCounter == 1;
+    return false
     // :OOOOO
 }
 
