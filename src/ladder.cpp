@@ -12,32 +12,18 @@ bool is_adjacent(const string& word1, const string& word2){
     int lenOne = word1.length();
     int lenTwo = word2.length();
     int SimCounter = 0;
-    if (lenOne-lenTwo = 0){
+    if (lenOne-lenTwo == 0){
         for (int i = 0; i < lenOne; ++i){
             if (word1[i] != word2[i]) SimCounter++;
         }
         return SimCounter == 1;
-    }else if (lenOne-lenTwo == 1){
-        for (int i = 0; i < lenTwo; ++i){
-            if (word1[i] != word2[i]) SimCounter++;
-            if (SimCounter == 1 && (i+1) != lenOne){
-                word1[i+1] == word2[i];
-                --SimCounter;
-            }
-        }
-        return SimCounter == 0;
-    }else if (lenOne-lenTwo == -1){ //only allowed to have a one difference
-        for (int i = 0; i < lenOne; ++i){
-            if (word1[i] != word2[i]) SimCounter++;
-            if (SimCounter == 1 && (i+1) != lenTwo){
-                word1[i] == word2[i+1];
-                --SimCounter;
-            }
-        }
-        return SimCounter == 0;
-    }
-    return false
-    // :OOOOO
+    }else if ((lenOne-lenTwo) == 1 || lenOne-lenTwo = -1){
+        if (lenOne > lenTwo){
+            string longWord = word1;
+            string shortWord = word2;
+
+        }else {
+
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
@@ -85,7 +71,9 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 //end function
 }
 
-void load_words(set<string> & word_list, const string& file_name);
+void load_words(set<string> & word_list, const string& file_name){
+
+}
 
 void print_word_ladder(const vector<string>& ladder){
     for (int i = 0 ; i < ladder.size(); ++i)
