@@ -22,8 +22,7 @@ bool is_adjacent(const string& word1, const string& word2){
             string longWord = word1;
             string shortWord = word2;
 
-        }else {
-
+        }// :OOOOO
 }
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list){
@@ -72,7 +71,14 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 }
 
 void load_words(set<string> & word_list, const string& file_name){
-
+    std::ifstream file(file_name);
+    if (!file.is_open()){error("File doesn't exist"); return;}
+    std::string line;
+    while (std::getline(file, line)){
+        std::cout << line << std::endl;
+        word_list.insert(line); 
+    }
+    file.close();
 }
 
 void print_word_ladder(const vector<string>& ladder){
@@ -80,4 +86,20 @@ void print_word_ladder(const vector<string>& ladder){
     std::cout << ladder[i] << " ";
 }
 
-void verify_word_ladder();
+void verify_word_ladder(){
+    set<string> word_list;
+
+    load_words(word_list, "words.txt");
+
+    my_assert(generate_word_ladder("cat", "dog", word_list).size() == 4);
+
+    my_assert(generate_word_ladder("marty", "curls", word_list).size() == 6);
+
+    my_assert(generate_word_ladder("code", "data", word_list).size() == 6);
+
+    my_assert(generate_word_ladder("work", "play", word_list).size() == 6);
+
+    my_assert(generate_word_ladder("sleep", "awake", word_list).size() == 8);
+
+    my_assert(generate_word_ladder("car", "cheat", word_list).size() == 4);
+}
