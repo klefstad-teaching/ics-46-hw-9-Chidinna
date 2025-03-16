@@ -1,54 +1,55 @@
 #include "dijkstras.h"
 
-vector<int> dijkstra_shortest_path(Graph& G, int ssource, vector<int>& previous){
-    n = graph.adjacencyList.size();
+vector<int> dijkstra_shortest_path(Graph& G, int source, vector<int>& previous){
+    //adjacencyList
+    n = G.numVertices;
 
 
-    graph.distance.resize(n, INT_MAX);
+    //distance.resize(n, INT_MAX);
 
-    graph.previous.resize(n, -1);
+    //previous.resize(n, -1);
 
-    graph.visited.resize(n, false);
+    //visited.resize(n, false);
 
+    vector<int> distance(n, INT_MAX);
+    vector<bool> visited(n, false);
+    previous.assign(n, -1);
 
-    priorityQueue pq;
+    priorityQueue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
 
-    pq.push(Node(source, 0));
+    pq.push({0, source});
 
-    graph.distance[source] = 0;
+    distance[source] = 0;
 
-
+    ///pq.push({0, source});
     while !pq.empty(){
 
-        current = pq.pop_top();
+        int u = pq.top().second;
+
+        pq.pop();
+
+        if (visited[u]) continue;
 
 
-        u = current.vertex;
+        visited[u] = true;
 
+        for(Edge& neighbor : G[u]){
 
-        if (graph.visited[u]) continue;
-
-
-        graph.visited[u] = true;
-
-
-        for(neighbor : graph.adjacencyList[u]){
-
-            v = neighbor.vertex;
+            int v = neighbor.dst;
 
             weight = neighbor.weight;
 
 
-            if(!graph.visited[v] and graph.distance[u] + weight < graph.distance[v]){
+            if(!visited[v] && distance[u] + weight <  distance[v]){
 
-                graph.distance[v] = graph.distance[u] + weight;
+                distance[v] = distance[u] + weight;
 
-                graph.previous[v] = u;
+                previous[v] = u;
 
-                pq.push(Node(v, graph.distance[v]));
+                pq.push({v, distance[v]});
             }
-        }
+        }   
 
     }
-    return pq;
+    return distance;
 }
