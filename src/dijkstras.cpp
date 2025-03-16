@@ -53,3 +53,13 @@ vector<int> dijkstra_shortest_path(Graph& G, int source, vector<int>& previous){
     }
     return distance;
 }
+
+vector<int> extract_shortest_path(const vector<int>& distances, const vector<int>& previous, int destination){
+    vector<int> returnVec;
+    if(previous[destination] == -1 || distances[destination] == 0){
+        std::cout << "No path to " << destination;
+        return returnVec;
+    }
+    for (int i = destination; i != -1; i = previous[i]) returnVec.push_back(i);
+    return returnVec;
+}
