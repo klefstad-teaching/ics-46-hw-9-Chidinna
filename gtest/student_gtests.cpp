@@ -76,3 +76,62 @@ TEST(ladder, blankToExistent) {
   EXPECT_EQ("No word ladder found.\n", output);
   EXPECT_FALSE(is_adjacent(" ", "bat"));
 }
+
+TEST(dijkstras, testInitialization) {
+  
+  Graph G;
+  EXPECT_EQ(G.numVertices,0);
+  G.numVertices = 4;
+  G.resize(G.numVertices);
+  G[0].push_back(Edge(0,1,3));
+  G[1].push_back(Edge(1,2,5));
+  G[2].push_back(Edge(2,3,4));
+  EXPECT_EQ(G.numVertices, 4);
+  //EXPECT_EQ(G)
+}
+
+TEST(dijkstras, fullTraversal) {
+  
+  Graph G;
+  EXPECT_EQ(G.numVertices,0);
+  G.numVertices = 4;
+  G.resize(G.numVertices);
+  G[0].push_back(Edge(0,1,3));
+  G[1].push_back(Edge(1,2,5));
+  G[2].push_back(Edge(2,3,4));
+  EXPECT_EQ(G.numVertices, 4);
+  int source = 0;
+  int destination = 3;
+  vector<int> previous;
+  vector<int> distances = dijkstra_shortest_path(G, source, previous);
+  vector<int> path = extract_shortest_path(distances, previous, destination);
+  testing::internal::CaptureStdout();
+  print_path(path, distances[destination]);
+  std::string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ("0 1 2 3 \nTotal cost is 12\n", output);
+  
+  //EXPECT_EQ(G)
+}
+
+TEST(dijkstras, partTraversal) {
+  
+  Graph G;
+  EXPECT_EQ(G.numVertices,0);
+  G.numVertices = 4;
+  G.resize(G.numVertices);
+  G[0].push_back(Edge(0,1,3));
+  G[1].push_back(Edge(1,2,5));
+  G[2].push_back(Edge(2,3,4));
+  EXPECT_EQ(G.numVertices, 4);
+  int source = 2;
+  int destination = 3;
+  vector<int> previous;
+  vector<int> distances = dijkstra_shortest_path(G, source, previous);
+  vector<int> path = extract_shortest_path(distances, previous, destination);
+  testing::internal::CaptureStdout();
+  print_path(path, distances[destination]);
+  std::string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ("2 3 \nTotal cost is 4\n", output);
+  
+  //EXPECT_EQ(G)
+}
